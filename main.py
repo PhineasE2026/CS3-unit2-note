@@ -41,6 +41,33 @@ def main():
     birth_series = pd.Series(birth_months)
     print(birth_series)
 
+    # create a dataframe from a single series object
+    df = pd.DataFrame(birth_series, columns=['Birth Month'])
+    print(df) # DataFrame objects have column headers
+    
+    # Create a DataFrame from dictionaries
+
+    pokemon_df = pd.read_csv('pokemon_data.csv')
+    print(pokemon_df)
+    print(pokemon_df.columns)
+    
+    # column headers can be used to access individual columns
+    print(pokemon_df['Name'])
+    print(pokemon_df.HP)
+    print(pokemon_df['Type 1'])
+
+    pokemon_df['Attack Ratio'] = pokemon_df['Attack'] / pokemon_df['Sp. Atk']
+
+    print(pokemon_df.head(10))
+    print(pokemon_df.sample(3))
+    print(pokemon_df.shape)
+    print(pokemon_df.info())
+    print(pokemon_df.describe())
+    print(pokemon_df['Defense'].describe())
+    print(pokemon_df['Type 1'].value_counts())
+    print(pokemon_df.loc[4])
+    print(pokemon_df.groupby('Type 1')[['HP','Speed']].mean())
+    print(pokemon_df.groupby('Type 1').size().sort_values(ascending=False))
 
 
 if __name__ == "__main__":
