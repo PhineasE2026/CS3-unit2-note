@@ -68,6 +68,29 @@ def main():
     print(pokemon_df.loc[4])
     print(pokemon_df.groupby('Type 1')[['HP','Speed']].mean())
     print(pokemon_df.groupby('Type 1').size().sort_values(ascending=False))
+    pokemon_df['Total'] = pokemon_df[ ['HP','Attack','Defense','Speed'] ].sum(axis=1)
+    print(pokemon_df['Total'])
+    print(pokemon_df.groupby('Generation')['Total'].mean())
+
+    print(pokemon_df.groupby('Legendary')['Total'].mean())
+
+    subset1 = pokemon_df[(pokemon_df['HP'] > 100)]
+    print(subset1)
+
+    subset2 = pokemon_df[(pokemon_df['Type 1'] == 'Psychic')]
+    print(subset2)
+
+    subset3 = subset2[(subset2['Type 2'] == 'Fairy') & (subset2['Sp. Atk'] > 50)]
+    print(subset3)
+
+    subset4 = pokemon_df[pokemon_df['Name'].str.contains('Mega')]
+    print(subset4)
+
+    subset5 = pokemon_df[pokemon_df['Legendary'] == False]
+    # shortcut with ~ operator
+    subset6 = pokemon_df[~pokemon_df['Legendary']]
+    print(subset5)
+    print(subset6)
 
 
 if __name__ == "__main__":
