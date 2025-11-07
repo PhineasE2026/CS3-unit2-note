@@ -1,16 +1,29 @@
 import pandas as pd
 from matplotlib import pyplot as plt
+from sklearn.datasets import load_iris
+
+plt.style.use('seaborn-v0_8-poster')
 
 cities = pd.read_csv('california_cities.csv')
-print(cities.info())
 
 # Extract data columns for our scatterplot
 latitudes = cities['latd'] # y values
 longitudes = cities['longd'] # x values
-populations = cities['population_total']
-area = cities['area_total_sq_mi']
+populations = cities['population_total'] # feature shown by COLORS
+area = cities['area_total_sq_mi'] # feature shown by SIZE of dots
 
 # gen scatter
-plt.scatter(longitudes, latitudes)
+plt.scatter(longitudes, latitudes, s=area, c=populations, cmap='seismic')
 plt.savefig('scatter-cities.png')
 plt.close()
+
+# scatterplot from Iris dataset
+iris = load_iris()
+print(iris) # 'feature_names': ['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)', 'petal width (cm)']
+features = iris.data.T # transpose (switch rows and cols)
+
+plt.scatter(features[0], features[1], c=iris.target, cmap='viridis', alpha=0.5, s=features[3]*100)
+# use column names as labels
+plt.xlabel(iris.feature_names[0])
+plt.ylabel(iris.feature_names[1])
+plt.savefig('scatter-iris.png')
